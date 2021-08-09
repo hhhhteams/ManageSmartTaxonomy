@@ -1,0 +1,526 @@
+﻿<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/main.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/HCTemplateControllers.js?updated=23-03-2018"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/HHHHComponentTagging.js"></script>
+<style type="text/css">
+    .bdrbox {
+        border: 1px solid #cccccc;
+    }
+
+    .pad10 {
+        padding: 10px;
+    }
+</style>
+<div ng-cloak>
+    <div id="SmartMetadataPopupId" class="panel panel-default" ng-cloak>
+        <div class="panel-title">
+            <button type="button" class="close mt-5" data-dismiss="modal" ng-click="cancelpopup()" style="min-width: 10px;">&times;</button>
+            <h3>
+                {{modaltype}} SmartMetadata Item
+                <span class="pull-right ">
+                    <page-settings-info webpartid="'EditSmartMetadataPopup'"></page-settings-info>
+                </span>
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div class="divPanelBody">
+                <div class="divPanelBody">
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <div id="tabs" class="exTab3">
+                                <ul class="nav nav-pills ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                                    <li class="active" id="activetab"><a data-toggle="tab" href="#basicinfo">BASIC INFORMATION</a></li>
+                                    <li><a data-toggle="tab" href="#ImageInfo">IMAGE INFORMATION</a></li>
+                                    <li><a ng-show="Showtasktab==true" data-toggle="tab" href="#Tasks">TASKS</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="basicinfo" class="tab-pane fade in active">
+                                        <div class="modal-body" overflow-y auto;>
+                                            <ng-form name="NewForm" novalidate role="form">
+                                                <div class="row" style="background: #f5f5f5 !important; margin-left: -10px;">
+                                                    <div id="parentdiv" class="form-group" style="margin-bottom: 4px;">
+                                                        <div class="col-xs-9">
+                                                            <ul class="breadcrumbs breadcrumbs_type5 responsibility_tile" ng-if="!changedParent">
+                                                                <li ng-if="ThirdLevel == undefined && SecondLevel==undefined && TopLevel == undefined" class="breadcrumbs__item"><span class="{{ThirdLevel == undefined && SecondLevel==undefined && TopLevel == undefined?'breadcrumbs__element':''}}">Root</span></li>
+                                                                <li ng-if="ThirdLevel != undefined" class="breadcrumbs__item"><span class="{{ThirdLevel != undefined?'breadcrumbs__element':''}}">{{ThirdLevel.Title}}</span></li>
+                                                                <li ng-if="SecondLevel!=undefined" class="breadcrumbs__item"><span class="{{SecondLevel!=undefined?'breadcrumbs__element':''}}">{{SecondLevel.Title}}</span><span>{{TopLevel.Title}}</span></li>
+                                                                <!-- <li ng-if="TopLevel != undefined" class="breadcrumbs__item"><span class="breadcrumbs__element">{{TopLevel.Title}}</span></li> -->
+                                                            </ul>
+                                                            <ul class="breadcrumbs breadcrumbs_type5" ng-if="changedParent">
+                                                                <li ng-if="TopLevel!=undefined" class="breadcrumbs__item"><span class="{{TopLevel != undefined?'breadcrumbs__element':''}}">{{TopLevel.Title}}</span></li>
+                                                                <li ng-if="SecondLevel != undefined && ddlParentLevel2!=undefined" class="breadcrumbs__item"><span class="{{SecondLevel != undefined && ddlParentLevel2!=undefined?'breadcrumbs__element':''}}">{{SecondLevel.Title}}</span></li>
+                                                                <li ng-if="ThirdLevel != undefined && SecondLevel!=undefined && TopLevel != undefined" class="breadcrumbs__item"><span class="{{ThirdLevel != undefined && SecondLevel!=undefined && TopLevel != undefined?'breadcrumbs__element':''}}">{{thirdCurrentLevel.Title}}</span></li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <div class="col-xs-3" style="margin-top: 5px;">
+
+                                                            <a style="float: right;" href="javascript:void(0);" ng-click="openparent(SecondLevel);">
+                                                                Change Parent
+                                                                <img style="cursor:pointer; float: right;margin: 2px;" src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                            </a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-4">
+                                                            <label class="col-sm-4 no-padding">Title<b class="span-error">*</b> </label>
+                                                            <input class="form-control" type="text" ng-required="true" id="txtTitle" ng-model="SmartTaxonomyItem.Title" />
+                                                        </div>
+                                                        <div class="col-sm-1" style="margin-top: -2px;">
+                                                            <label class="full_width"> Sort Order<b class="span-error"></b> </label>
+                                                            <input class="form-control" type="text" ng-model="SmartTaxonomyItem.SortOrder" />
+                                                        </div>
+                                                                <div class="col-sm-2">
+                                                                    <label> Status</label>
+                                                                    <select ng-model="SmartTaxonomyItem.Status" class="form-control no-padding">
+                                                                        <option ng-repeat="item in DropdownArray" value="{{item}}">
+                                                                            {{item}}
+                                                                        </option>
+    
+                                                                    </select>
+    
+    
+                                                                </div>
+                                                                <div class="col-sm-2 ">
+                                                                    <label> Item Rank </label>
+                                                                    <select class="form-control" id="ItemRankType"
+                                                                            ng-model="SmartTaxonomyItem.ItemRank">
+                                                                        <option value="">Select Item Rank</option>
+                                                                        <option value="8">(8) Top Highlights</option>
+                                                                        <option value="7">(7) Featured Item</option>
+                                                                        <option value="6">(6) Key Item</option>
+                                                                        <option value="5">(5) Relevant Item</option>
+                                                                        <option value="4">(4) Background Item</option>
+                                                                        <option value="1">(1) Archive</option>
+                                                                        <option value="0">(0) No Show</option>
+                                                                    </select>
+                                                                </div>
+    
+                                                                <div class="col-sm-2">
+                                                                    <input type="checkbox" ng-model="SmartTaxonomyItem.IsVisible" ng-click="checkitem(SmartTaxonomyItem.IsVisible,'IsVisible')" /> <label>IsVisible</label><br>
+                                                                    <input type="checkbox" ng-model="SmartTaxonomyItem.Selectable" ng-click="checkitem(SmartTaxonomyItem.Selectable,'Selectable')" /> <label>Selectable</label><br>
+                                                                    <input type="checkbox" ng-model="SmartTaxonomyItem.SmartSuggestions" ng-click="checkitem(SmartTaxonomyItem.SmartSuggestions,'SmartSuggestions')" /> <label>Smart Suggestions</label>
+        
+                                                                </div>
+                                                              
+                                                    
+                                                        <div class="clearfix"></div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-show="TaxType=='Topics'|| TaxType=='Countries'" style="margin-top: -7px;">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-sm-4 no-padding">TargetDocumentFolder<b class="span-error">*</b> </label>
+                                                            <a style="float:left;" ng-if="folderUrl == undefined" href="javascript:void(0)" title="Click for Associated Folder" ng-click="AssociatedFolder()">Select folder</a>
+                                                            <div class="col-sm-6 no-padding">{{folderUrl}}</div>
+                                                            <input id="newFolder" style="display:none;" ng-required="false" ng-model="folderTitle" class="form-control" type="text" placeholder="Or type new folder name to create sub folder">
+                                                            <a ng-if="folderUrl != undefined" href="javascript:void(0)" title="Click for Associated Folder" ng-click="AssociatedFolder()">Change</a>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                
+                                                    <div class="form-group" style="margin-top:-20px !important;">
+
+                                                        <div class="">
+                                                            <div class="col-sm-10 mb20" style="margin-top: 10px;">
+                                                                <label class="full_width">Help Description<b class="span-error">*</b> </label>
+                                                                <textarea rows="4" id="txtComments" style="width:100%; margin:4px 0px;" ng-model="SmartTaxonomyItem.Description1"></textarea>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-form>
+                                        </div>
+                                    </div>
+                                    <div id="ImageInfo" class="tab-pane fade">
+                                        <div class="container link-tab">
+                                            <div class="col-md-10 .col-md-offset-2 pull-right form-group ">
+                                                <div class="pull-right">
+                                                    <a href="javascript:void(0);" ng-click="clearselectedimage();">Clear</a>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Search" title="{{selectedImageUrl}}" ng-model="selectedImageUrl" />
+                                            </div>
+                                        </div>
+                                        <div class="container box" id="img-part">
+                                            <div class="left-section col-md-2">
+                                                <div class="exTab3 row">
+                                                    <ul class="nav nav-pills col-sm-12">
+
+                                                        <li class=" Tab-length">
+                                                            <a href=" #Active_tab" data-toggle="pill" ng-click="selectImageType('icon')">
+                                                                &nbsp;Icons
+                                                            </a>
+                                                        </li>
+                                                        <li class="Tab-length active">
+                                                            <a href="#Active_tab" data-toggle="pill" ng-click="selectImageType('logos')">
+                                                                &nbsp;Logos
+                                                            </a>
+                                                        </li>
+                                                        <li class="Tab-length">
+                                                            <a href="#Active_tab" data-toggle="pill" ng-click="selectImageType('tiles')">
+                                                                &nbsp;Tiles
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div ng-if="selectedImageUrl != undefined">
+                                                    <div class="col-sm-12  mt-5">
+                                                        <div class="img">
+                                                            <img id="selectedimage" ng-src="{{selectedImageUrl}}?RenditionID=12" title="{{selectedImageUrl}}" />
+                                                        </div>
+                                                        <div>
+                                                            {{selectedImage.FileLeafRef}}
+                                                        </div>
+                                                        <div class="para"> <a target="_blank" ng-href="{{getimagefolderurl(selectedImageUrl)}}"> <img ng-src="/_layouts/15/images/folder.gif" src="/_layouts/15/images/folder.gif"> Image Folder </a> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-10 fix-height inner-tabb padding0 ">
+                                                <div class="tab-pane active">
+                                                    <div class="row">
+                                                        <div class="pb5">
+                                                            <div class="tabbable-panel">
+                                                                <div class="exTab3 tabbable-line">
+                                                                    <ul class="nav nav-pills nav nav-tabs  ">
+                                                                        <li class="active" id="Active_tab">
+
+                                                                            <a href="#tab_default_1" data-toggle="tab" value="existingcover" ng-model="imageoptions" ng-click="showcoveroption('exsting')">Choose from existing</a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a id="coverhide1" href="#coverhide1" data-toggle="tab" ng-model="imageoptions" value="copycover" ng-click="showcoveroption('copypaste')">Copy & Paste</a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a href="#showUpload" data-toggle="tab" value="uploadcover" ng-model="imageoptions" ng-click="showcoveroption('upload')">Upload</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="tab-content pad_tab-content imageinfo_border" id="tab_default_1" style="padding-bottom: 0px; margin-bottom: -1px;">
+                                                                        <div style="padding-left: 60px;" class="form-group search-image" ng-show="existingcover && Images !=null && Images != undefined && Images.length>0">
+                                                                            <a class="pull-right" href="javascript:void(0);" ng-click="ShowImagesOOTB()" target="_blank">Find in shareweb picture library</a><img src="/_layouts/15/images/folder.gif" class="pull-right mt-3" />
+                                                                            <input type="text" class="form-control" ng-model="searchImage" placeholder="Search all images here...">
+                                                                        </div>
+
+
+
+                                                                        <div ng-show="existingcover && Images !=null && Images != undefined && Images.length>0">
+                                                                            <div>
+                                                                                <div class="panel-body" style="padding:0px 5px !important;">
+                                                                                    <div class="gallery" id="iconImages" ng-show="selectedImageType == 'icon'">
+                                                                                        <!-- <img data-toggle="popover" data-trigger="
+                                                                                        " data-content="{{img.FileLeafRef}}" ng-if="img.FileDirRef.indexOf('Covers/Default') == -1 && img.FileLeafRef != 'view_more.png'" id="{{img.Id}}_icon" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="coverimage" ng-repeat="img in Images | filter:searchImage | limitTo:17" /> -->
+                                                                                        <!-- <img data-toggle="popover" data-trigger="hover" data-content="Click here to load more images" ng-src="{{baseUrl}}/PublishingImages/Covers/Default/view_more.png?RenditionID=9?RenditionID=9" ng-click="ShowAllCovers()" class="coverimage view_more_img" />  -->
+                                                                                        <ul class="imageinfo-gallery">
+                                                                                            <li class="icon-list" ng-repeat="img in Images | filter:searchImage | limitTo:17">
+                                                                                                <a href="javascript:void(0);" id="iconimg" rel="{{img.EncodedAbsUrl}}" class="preview" title="{{img.FileLeafRef}}">
+                                                                                                    <img ng-if="img.FileDirRef.indexOf('Covers/Default') == -1 && img.FileLeafRef != 'cover.png'" id="{{img.Id}}_icon" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="iconimage" alt="{{img.FileLeafRef}}" />
+                                                                                                </a>
+                                                                                                <div class="img-bottom "><img class="pull-right setting-icon" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/settings.png" ng-click="Replaceselectedimage(img);" /></div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                        <img data-toggle="popover" data-trigger="hover" data-content="Click here to load more images" ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/Permission/Default/view_more.png?RenditionID=9" ng-click="ShowAllCovers()" class="coverimage view_more_img" />
+                                                                                    </div>
+                                                                                    <div class="gallery" id="logoImages" class="active" ng-show="selectedImageType == 'logos'">
+                                                                                        <!-- <img data-toggle="popover" data-trigger="hover" data-content="{{img.FileLeafRef}}" id="{{img.Id}}_image" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="logo-imgg" ng-repeat="img in Images | filter:searchImage" />  -->
+                                                                                        <ul class="imageinfo-gallery">
+                                                                                            <li class="logos-list" ng-repeat="img in Images | filter:searchImage">
+                                                                                                <a href="javascript:void(0);" id="logosimg" rel="{{img.EncodedAbsUrl}}" class="preview" title="{{img.FileLeafRef}}">
+                                                                                                    <img id="{{img.Id}}_image" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="logo-imgg" />
+                                                                                                </a>
+                                                                                                <div class="img-bottom "><img class="pull-right setting-icon" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/settings.png" ng-click="Replaceselectedimage(img);" /></div>
+                                                                                            </li>
+                                                                                        </ul>
+
+                                                                                    </div>
+
+                                                                                    <div class="gallery" id="tilesImages" ng-show="selectedImageType == 'tiles'">
+                                                                                        <!-- <img data-toggle="popover" data-trigger="hover" data-content="{{img.FileLeafRef}}" id="{{img.Id}}_tilesimage" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="coverimage" ng-repeat="img in Images | filter:searchImage | limitTo:17" />  -->
+                                                                                        <!-- <img data-toggle="popover" data-trigger="hover" data-content="Click here to load more images" ng-src="{{baseUrl}}/PublishingImages/Covers/Default/view_more.png?RenditionID=9" ng-click="ShowAllCovers()" class="coverimage view_more_img" /> -->
+
+
+                                                                                        <ul class="imageinfo-gallery">
+                                                                                            <li ng-repeat="img in Images | filter:searchImage | limitTo:17" class="images-list">
+                                                                                                <a href="javascript:void(0);" id="pageImages" rel="{{img.EncodedAbsUrl}}" class="preview" title="{{img.FileLeafRef}}">
+                                                                                                    <img id="{{img.Id}}_tiles" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImage(img)" class="pageimage" />
+                                                                                                </a>
+                                                                                                <div class="img-bottom "><img class="pull-right setting-icon" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/settings.png" ng-click="Replaceselectedimage(img);" /></div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                        <img data-toggle="popover" data-trigger="hover" data-content="Click here to load more images" ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/Permission/Default/view_more.png?RenditionID=9" ng-click="ShowAllCovers()" class="pageimage view_more_img" />
+
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!--<div class="tab-pane" >-->
+                                                                        <div ng-show="copycover" class="form-group pad_tab-content" id="coverhide1">
+                                                                            <!--<div class="panel panel-default">
+                                                                            <div class="panel-body">-->
+                                                                            <div class="form-group" id="pasteitemcover">
+                                                                                <div class="col-sm-12">
+                                                                                    <label class="full_width">Image Name</label>
+                                                                                    <input type="text" class="form-control" ng-model="ImageName" placeholder=".jpg" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <label class="full_width">Paste a new cover:</label>
+                                                                                <div id="itemCoverBody"></div>
+                                                                                <button type="button" class="btn btn-primary pull-right mt-10" ng-click="copyPasteCover()">Upload</button>
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                        <div ng-show="uploadcover==true" class="tab-pane pad_tab-content" id="showUpload">
+                                                                            <div class="" id="fixedHieght">
+                                                                                <div class="">
+                                                                                    <div id="itemcover">
+                                                                                        <div class="col-sm-12">
+                                                                                            <label class="full_width">Upload from Computer:</label>
+                                                                                            <br />
+                                                                                            <input class="form-control" ng-model="uploadFile" type="file" id="uploadFile" accept="image/*" valid-file>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <br />
+                                                                                            <button type="button" class="btn btn-primary pull-right va" ng-click="uploadCoverImage()">Upload</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="Showtasktab==true" id="Tasks" class="tab-pane fade">
+                                        <div class="row">
+                                            <div class="col-sm-12  dashboard_col-sm-6">
+                                                <div class="panel panel-primary-head blocks" id="t_draggable1">
+                                                    <div class="section-event pt-0" id="testDiv1">
+                                                        <ul ng-if="AllSitesTask.length>0" id="tasks" class="table">
+                                                            <li class="for-lis tdrows">
+                                                                <div style="width:5%;"></div>
+                                                                <div style="width:10%;">
+                                                                    <div class="" style="width:81%;">
+                                                                        <input id="searchSiteName" type="search" placeholder="Site" class="searchbox_height width-90" ng-model="searchSiteName">
+                                                                        <span ng-if="searchSiteName!=undefined" class="searchclear" ng-click="clearControl('searchSiteName')">X</span>
+                                                                        <span class="{{orderBy=='Shareweb_x0020_ID'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('Shareweb_x0020_ID', false)"></span>
+                                                                        <span class="{{orderBy=='Shareweb_x0020_ID'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('Shareweb_x0020_ID', true)"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div style="width:40%;">
+                                                                    <div style="width:100%;" class="padLR">
+                                                                        <input type="search" id="searchTaskName" placeholder="Task Title" class="searchbox_height width-90 ng-valid ng-dirty ng-touched ng-empty" ng-model="searchTaskName" />
+                                                                        <span ng-if="searchTaskName!=undefined" class="searchclear" ng-click="clearControl('searchTaskName')">X</span>
+                                                                        <span class="{{orderBy=='Title'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('Title', false)"></span>
+                                                                        <span class="{{orderBy=='Title'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('Title', true)"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div style="width:10%;">
+                                                                    <div style="width:80%;" class="padLR padL-0">
+                                                                        <input type="search" id="searchPercentComplete" placeholder="%" class="searchbox_height width-90 ng-valid ng-dirty ng-touched ng-empty" ng-model="searchPercentComplete" />
+                                                                        <span ng-if="searchPercentComplete!=undefined" class="searchclear" ng-click="clearControl('searchPercentComplete')">X</span>
+                                                                        <span class="{{orderBy=='PercentComplete'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('PercentComplete', false)"></span>
+                                                                        <span class="{{orderBy=='PercentComplete'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('PercentComplete', true)"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:11%;">
+                                                                    <div style="width:80%;" class="padLR padL-0">
+                                                                        <input type="search" id="searchModified" placeholder="Created Date" class="searchbox_height width-90 ng-valid ng-dirty ng-touched ng-empty" ng-model="searchModified" />
+                                                                        <span ng-if="searchModified!=undefined" class="searchclear" ng-click="clearControl('searchModified')">X</span>
+                                                                        <span class="{{orderBy=='Created'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('Created', false)"></span>
+                                                                        <span class="{{orderBy=='Created'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('Created', true)"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:11%;">
+                                                                    <div style="width:80%;" class="padLR padL-0">
+                                                                        <input type="search" id="searchModifiednew" placeholder="Modified Date" class="searchbox_height width-90 ng-valid ng-dirty ng-touched ng-empty" ng-model="searchModifiednew" />
+                                                                        <span ng-if="searchModifiednew!=undefined" class="searchclear" ng-click="clearControl('searchModifiednew')">X</span>
+                                                                        <span class="{{orderBy=='Modified'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('Modified', false)"></span>
+                                                                        <span class="{{orderBy=='Modified'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('Modified', true)"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:8%;">
+                                                                    <div style="width:80%;" class="padLR padL-0">
+                                                                        <input type="search" id="searchDueDate" placeholder="Due Date" class="searchbox_height width-90 ng-valid ng-dirty ng-touched ng-empty" ng-model="searchDueDate" />
+                                                                        <span ng-if="searchDueDate!=undefined" class="searchclear" ng-click="clearControl('searchDueDate')">X</span>
+                                                                        <span class="{{orderBy=='DueDate'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortBy('DueDate', false)"></span>
+                                                                        <span class="{{orderBy=='DueDate'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortBy('DueDate', true)"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:2%;"><div style="width:80%;" class="padLR"></div></div>
+
+                                                            </li>
+                                                            <div class="container-new">
+                                                                <li class="{{item.Portfoliotype=='Service'?'taskprofilepagegreen':''||item.Portfoliotype=='Event'?'taskprofilepageorange':''}} for-lis tdrows" ng-repeat="item in filtered = (AllSitesTask  | orderBy:orderBy:reverse | filter:searchfilterId   | filter:{Title:searchTaskName,PercentComplete:searchPercentComplete,Modifiednew:searchModifiednew,CreatedNew:searchModified,Shareweb_x0020_ID:searchSiteName,TaskDueDate:searchDueDate})">
+                                                                    <div style="width:5%;">
+                                                                        <div style="width:80%;" class="">
+                                                                            <input type="checkbox" ng-click="selectdeselectItems(item);" ng-model="item.select" value="" name="chkSelected" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="width:10%;">
+                                                                        <img ng-if="item.siteType =='Gruene'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                                                        <img ng-if="item.siteType =='Gender'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                                                        <img ng-if="item.siteType =='DE'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                                                        <img ng-if="item.siteType =='DRR'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                                                        <img ng-if="item.siteType =='Education'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                                                        <img ng-if="item.siteType =='EI'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                                                        <img ng-if="item.siteType =='EPS'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                                                        <img ng-if="item.siteType =='Health'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                                                        <img ng-if="item.siteType =='QA'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                                                        <img ng-if="item.siteType =='Shareweb'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                                                        <img ng-if="item.siteType =='HHHH'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                                                        <img ng-if="item.siteType =='Small Projects'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                                                        <img ng-if="item.siteType =='Offshore Tasks'" class="icon-sites-img" ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/offshore_Tasks.png">
+                                                                        {{item.Shareweb_x0020_ID}}
+
+                                                                    </div>
+
+                                                                    <div style="width:40%;" class="padLR" ng-if="item.siteType =='Gruene'||item.siteType =='Gender'||item.siteType =='DE'||item.siteType =='DRR'||item.siteType =='Education'||item.siteType =='EI'||item.siteType =='EPS'||item.siteType =='Health'||item.siteType =='QA'||item.siteType =='Shareweb'||item.siteType =='HHHH'||item.siteType =='Small Projects' || item.siteType =='Offshore Tasks' ">
+                                                                        <a class="hreflink" target="_blank" ng-href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/sp/SitePages/Task-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                                                            {{item.Title}}
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div style="width:10%;" class="padLR pl-10">
+                                                                        {{item.PercentComplete}}%
+                                                                    </div>
+                                                                    <div style="width:11%;" class="padLR pl-10">
+                                                                        {{item.CreatedNew}}
+
+                                                                    </div>
+                                                                    <div style="width:11%;" class="padLR pl-10">
+                                                                        {{item.Modifiednew}}
+                                                                    </div>
+                                                                    <div style="width:8%;" class="padLR pl-10">
+                                                                        {{item.TaskDueDate}}
+                                                                    </div>
+
+                                                                    <!--<div style="width:2%;" class="padLR">
+                                                                        <a class="hreflink" title="Edit" data-toggle="modal" ng-click="EditTask(item)"><img class="img-focus" ng-src="/_layouts/images/edititem.gif"> </a>
+                                                                    </div>-->
+
+                                                                </li>
+                                                            </div>
+                                                        </ul>
+                                                        <div class="col-sm-12 pr-10">
+                                                        <button ng-if="AllSitesTask.length>0"  ng-disabled="Selecteditems.length==0" type="button" class="pull-right btn btn-primary mb-5 mt-10" ng-click="Removecategories()">Remove Categories </button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="AllSitesTask.length==0" class="col-sm-12">
+                                            <div class="col-sm-12  forNoTaggedTask ng-scope ">
+                                                No Task Available
+                                            </div>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ItemInfo" style="padding-top:15px;" ng-show="modaltype == 'Update'">
+            <div>Created <span>{{SmartTaxonomyItem.Created}}</span> by <span class="footerUsercolor">{{SmartTaxonomyItem.Author.Title}}</span></div>
+            <div>Last modified <span>{{SmartTaxonomyItem.Modified}}</span> by <span class="footerUsercolor">{{SmartTaxonomyItem.Editor.Title}}</span></div>
+        </div>
+        <div class="modal-footer">
+            <a target="_blank" ng-href="{{SubsiteUrl}}/Lists/SmartMetadata/EditForm.aspx?ID={{SmartTaxonomyItem.ID}}" ng-show="modaltype == 'Update'">Open out-of-the-box form</a>
+            <button type="button" ng-disabled="NewForm.$error.required" class="btn btn-primary" ng-click="UpdateItem()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelpopup()">Cancel</button>
+        </div>
+
+    </div>
+    <div id="manageparent" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog" style="width: 650px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelparent()" style="min-width: 10px;">&times;</button>
+                    <h4 class="modal-title">
+                        Select Parent
+                        <span class="pull-right ">
+                            <page-settings-info webpartid="'Selectparent'"></page-settings-info>
+                        </span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="parentid" style="display:none;"></div>
+                    <div class="col-sm-12 tab-content bdrbox pad10">
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                Top Level:
+                            </div>
+                            <div class="col-xs-9">
+                                <select id="parentlevel1" class="form-control" ng-change="loadParentlevel2(ddlParentLevel1.childs)" ng-model="ddlParentLevel1">
+                                    <option value="" class="">Root</option>
+                                    <option value="{{item.Id}}" ng-if="item.TaxType == TaxType" ng-selected="item.Title==ddlParentLevel1Title" ng-repeat="item in TaxonomyItems">{{item.Title}}</option>
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                Second Level:
+                                <b class="span-error">*</b>
+                            </div>
+                            <div class="col-xs-9">
+                                <select id="parentlevel2" class="form-control" ng-model="ddlParentLevel2" ng-options="item.Id as item.Title for item in parentlevel2Items"><option value="" class="">Select</option></select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="saveselectedparent()">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelparent()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalAllCovers" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="min-width: 10px;" ng-click="cancelItemCover()" title="Click to exit">&times;</button>
+                    <h4 class="modal-title">Select Item Cover</h4>
+                    <div class="pull-right">
+                        <button type="button" ng-disabled="rowPosition <= 115" class="btn btn-primary btn-prev" ng-click="LoadPrevCovers(rowPosition)" title="Click to load prev 100 Covers">Prev</button>
+                        <button type="button" ng-disabled="rowPosition >= Images.length" class="btn btn-primary btn-next" ng-click="LoadNextCovers(rowPosition)" title="Click to load next 100 Covers">Next</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="coverImagesPopup">
+                        <!-- <img title="{{img.FileLeafRef}}" id="{{img.Id}}_imagepopup" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImagePopup(img)" class="morecovers" ng-repeat="img in SharewebImages" /> -->
+                        <ul class="imageinfo-gallery">
+                            <li ng-repeat="img in Images">
+                                <a class="preview hreflink" rel="{{img.EncodedAbsUrl}}" title="{{img.FileLeafRef}}">
+                                    <img id="{{img.Id}}_imagepopup" ng-src="{{img.EncodedAbsUrl}}?RenditionID=9" ng-click="selectImagePopup(img)" class="morecovers" />
+                                </a>
+                                <div class="img-bottom "><img class="pull-right setting-icon" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/settings.png" ng-click="Replaceselectedimage(img);" /></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary" ng-click="cancelItemCover()" title="Save changes & exit">Save</button>-->
+                    <!-- <button type="button" class="btn btn-default" ng-click="cancelItemCover()" title="Discard unsaved changes & exit">OK</button> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

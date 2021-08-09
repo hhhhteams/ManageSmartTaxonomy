@@ -1,0 +1,1376 @@
+﻿<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/main.js"></script>
+<script src="https://static.sharepointonline.com/bld/_layouts/15/16.0.8929.1228/sp.requestexecutor.js"></script>
+<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/jquery.SPServices-2014.01.min.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/render.min.js?updated=07-29-2018-2"></script>
+<link rel="stylesheet" href="https://www.hochhuth-consting.de/Style%20Library/js/angular/Services/froala_style.min.css" type="text/css">
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<link rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.css" type="text/css">
+<link rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_style.min.css" type="text/css">
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Online/ManageSmartTaxonomy/CompareMetaDataTool.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Online/ManageSmartTaxonomy/EditSharewebSmartMetaData.js"></script>
+<style>
+
+
+    .differenceValues {
+        background-color: #ccc !important;
+    }
+
+    .page-content {
+        top: 1px !important;
+    }
+
+    button#fullscreen-1, button#fullscreen-2, button#fullscreen-3, button#fullscreen-4, button#fullscreen-5, button#fullscreen-6, button#fullscreen-7, button#fullscreen-8, button#fullscreen-9 {
+        position: absolute;
+        right: 0px;
+        border-left: 1px solid #ccc;
+    }
+
+    .dropBox {
+        background: #ccc !important;
+    }
+
+    .icon-sites-img {
+        height: 26px;
+        width: 26px !important;
+    }
+
+    .dashboard {
+        width: 1280px !important;
+        margin-top: 1px;
+    }
+
+    .wrapper .glyphicon_active {
+        position: absolute;
+        right: 9px;
+        color: #000069;
+    }
+
+    .for-size {
+        width: 880px;
+        margin: 0 auto;
+    }
+
+    .for_model_use {
+        display: block;
+        width: 500px;
+        margin: 0 auto;
+        background-color: #fff !important;
+    }
+
+    .for_border_use {
+        border: 1px solid #ccc !important;
+        background-color: #fff;
+        padding: 7px;
+        font-size: 13px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-weight: 600;
+    }
+
+    .header_back_clr {
+        background: #bbb3b3;
+        color: #fff;
+    }
+
+    .for_height_use {
+        border: 1px solid #ababab;
+        height: auto;
+        background: #ffffff;
+    }
+
+    .checkbox,
+    .radio {
+        margin-left: 11px;
+    }
+
+    .trbox_bdr {
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .back_box_clr {
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+    }
+
+    .box_bdr {
+        border: 1px solid #ccc;
+    }
+
+    .font_bold_size {
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .pb_15 {
+        padding-bottom: 15px;
+    }
+
+    .table_shadow_box {
+        box-shadow: 0 5px 6px 0 #d7d7d7;
+        transition: all 0.3s ease 0s;
+    }
+
+    .for_dotted {
+        border: 2px dotted #ccc;
+        min-height: 100px;
+        min-height: 100px;
+    }
+
+    .for_text {
+        padding: 7px;
+        font-weight: 600;
+    }
+
+    .backarea {
+        min-width: 120px;
+        background-color: #000066;
+        display: inline-block;
+        margin-left: 5px;
+        color: #fff;
+        padding: 2px;
+    }
+
+    .box_height_scroll {
+        height: 260px;
+        overflow-y: scroll;
+    }
+
+    .panel-headingtitle {
+        text-align: center;
+        color: #fff !important;
+        font-size: 13px;
+    }
+
+    .panel-heading.bg-blue {
+        padding: 5px 5px 4px 4px !important;
+        background: #000069 !important;
+    }
+
+    .highlight {
+        color: red !important;
+    }
+
+    .leftclass {
+        margin-left: 24px !important;
+    }
+</style>
+<div class="panel panel-default" ng-controller="compareMetaDataToolController" ng-cloak>
+    <div>
+        <!--<div class="panel-title">
+        <h3>
+            <span>Compare SmartMetaData</span>
+
+        </h3>
+    </div>-->
+        <div class="panel-title">
+            <button type="button" class="close" data-dismiss="modal" ng-click="exit()" style="min-width: 10px;">&times;</button>
+            <h3>
+                <span>Compare SmartMetaData</span>
+                <span class="pull-right"><page-settings-info webpartid="'CompareSmartmetadata'"></page-settings-info></span>
+
+            </h3>
+        </div>
+
+        <ng-form>
+
+            <div class="pane-body tab-content">
+                <div class="container">
+                    <!----Title-->
+                    <div class="involve_actor mt-10 mb-10">
+
+                        <div class="tlvalue impact-infoII">
+                            <div class="mb-10">
+                                <span>
+                                    {{firstMetaDataItem.BreadcrumbDetails.Parentitem.Title}}
+                                </span>
+
+                                <span ng-show="firstMetaDataItem.BreadcrumbDetails.Child!=undefined">
+                                    <span style="margin-right: 3px!important;font-size: 13px; ">></span>
+                                    {{firstMetaDataItem.BreadcrumbDetails.Child.Title}}
+                                </span>
+                                <span ng-if="firstMetaDataItem.BreadcrumbDetails.Subchild!=undefined">
+                                    <span style="margin-right: 3px!important;font-size: 13px; ">></span>
+                                    {{firstMetaDataItem.BreadcrumbDetails.Subchild.Title}}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="mr-5"><img class="icon-sites-img" ng-if="firstMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{firstMetaDataItem.Item_x005F_x0020_Cover.Url}}" /></span>
+
+                                <a target="_blank" ng-href="">{{firstMetaDataItem.Title}} </a>
+                                <span>
+                                    <a class="hreflink padding-left ng-scope" ng-click="EditProfileContent(firstMetaDataItem.TaxType,firstMetaDataItem)">
+                                        <img ng-src="/_layouts/images/edititem.gif">
+                                    </a>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="tmvalue impact-infoI forimg">
+                            <span class="col-sm-12 text-center"><img ng-src="https://www.shareweb.ch/site/Joint/SiteCollectionImages/ICONS/32/SwitchItem_ei.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="switchItems();" /></span>
+
+                        </div>
+
+                        <div class="tlvalue impact-infoII">
+                            <div class="mb-10">
+                                <span>
+                                    {{secondMetaDataItem.BreadcrumbDetails.Parentitem.Title}}
+                                </span>
+
+                                <span ng-show="secondMetaDataItem.BreadcrumbDetails.Child!=undefined">
+                                    <span style="margin-right: 3px!important;font-size: 13px; ">></span>
+                                    {{secondMetaDataItem.BreadcrumbDetails.Child.Title}}
+                                </span>
+                                <span ng-if="secondMetaDataItem.BreadcrumbDetails.Subchild!=undefined">
+                                    <span style="margin-right: 3px!important;font-size: 13px; ">></span>
+                                    {{secondMetaDataItem.BreadcrumbDetails.Subchild.Title}}
+                                </span>
+                            </div>
+                            <div class="partner_des partner_des footerUsercolor">
+                                <span class="mr-5"><img class="icon-sites-img" ng-if="secondMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{secondMetaDataItem.Item_x005F_x0020_Cover.Url}}" /></span>
+
+
+                                <a target="_blank" ng-href="">{{secondMetaDataItem.Title}}</a>
+                                <span>
+                                    <a class="hreflink padding-left ng-scope" ng-click="EditProfileContent(secondMetaDataItem.TaxType,secondMetaDataItem)">
+                                        <img ng-src="/_layouts/images/edititem.gif" src="/_layouts/images/edititem.gif">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoALLItems();">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Title</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="firstMetaDataItem.Title" autocomplete="off" /></div>
+                        </div>
+                        <div class=" tmvalue impact-infoI {{IsSameTitle?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'Title');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'Title');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Title</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="secondMetaDataItem.Title" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('Title');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">TaxType</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="firstMetaDataItem.TaxType" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI {{IsSameTaxType?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'TaxType');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'TaxType');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">TaxType</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="secondMetaDataItem.TaxType" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('TaxType');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">SortOrder</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="firstMetaDataItem.SortOrder" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI {{IsSameSortOrder?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'SortOrder');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'SortOrder');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">SortOrder</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <input type="text" class="form-control" ng-model="secondMetaDataItem.SortOrder" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('SortOrder');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">SmartSuggestions</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5"> <input type="checkbox" class="pull-left" ng-model="firstMetaDataItem.SmartSuggestions" autocomplete="off" /></div>
+                        </div>
+                        <div class=" tmvalue impact-infoI {{IsSameCategories?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'SmartSuggestions');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'SmartSuggestions');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">SmartSuggestions</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5"> <input type="checkbox" class="pull-left" ng-model="secondMetaDataItem.SmartSuggestions" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('SmartSuggestions');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">IsVisible</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5"> <input type="checkbox" class="pull-left" ng-model="firstMetaDataItem.IsVisible" autocomplete="off" /></div>
+                        </div>
+                        <div class=" tmvalue impact-infoI {{IsSameCategories?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'IsVisible');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'IsVisible');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">IsVisible</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5"> <input type="checkbox" class="pull-left" ng-model="secondMetaDataItem.IsVisible" autocomplete="off" /></div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('IsVisible');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Status</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5">
+                                <select class="form-control " id="AdminStatus" name="AdminStatus" ng-model="firstMetaDataItem.Status">
+                                    <option value="Select">Select</option>
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="Reviewed">Reviewed</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Published">Published</option>
+                                    <option value="Final">Final</option>
+                                    <option value="Expired">Expired</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="{{firstMetaDataItem.Status ==secondMetaDataItem.Status ?'tmvalue impact-infoI':'tmvalue impact-infoI differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Please Select Help Information" data-toggle="popover" data-trigger="hover" ng-click="LeftToRight('Status');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Please Select Help Information" data-toggle="popover" data-trigger="hover" ng-click="RightToLeft('Status');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Status</label>
+                            </div>
+                            <div class="col-sm-9 padL-0 mt-5">
+                                <select class="form-control " id="AdminStatus" name="AdminStatus" ng-model="secondMetaDataItem.Status">
+                                    <option value="Select">Select</option>
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="Reviewed">Reviewed</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Published">Published</option>
+                                    <option value="Final">Final</option>
+                                    <option value="Expired">Expired</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10"><img ng-src="https://www.shareweb.ch/site/Joint/SiteCollectionImages/ICONS/32/icon_Undo.png" title="Undo Changes" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('Status')" /></span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Help Description</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <textarea class="" rows="4" ng-model="firstMetaDataItem.Description1"></textarea></div>
+
+                        </div>
+                        <div class=" tmvalue impact-infoI {{IsSameDescription1?'':'differenceValues'}}">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'Description1');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Switch Items" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'Description1');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-3 no-padding padL-0">
+                                <label class="full_width">Help Description</label>
+                            </div>
+                            <div class="col-sm-9 padL-0"> <textarea class="" rows="4" ng-model="secondMetaDataItem.Description1"></textarea></div>
+
+
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('Description1');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <span class="full_width">Image</span>
+
+                            <span class=" ">
+                                <img class="icon-sites-img" ng-if="firstMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{firstMetaDataItem.Item_x005F_x0020_Cover.Url}}" />
+                            </span>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Please Select Help Information" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'Item_x005F_x0020_Cover');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Please Select Help Information" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'Item_x005F_x0020_Cover');">
+                            </span>
+                        </div>
+
+                        <div class="tlvalue impact-infoII">
+                            <span class="full_width">Image</span>
+
+                            <span>
+                                <img class="icon-sites-img" ng-if="secondMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{secondMetaDataItem.Item_x005F_x0020_Cover.Url}}" />
+                            </span>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10"><img ng-src="https://www.shareweb.ch/site/Joint/SiteCollectionImages/ICONS/32/icon_Undo.png" title="Undo Changes" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('Item_x005F_x0020_Cover')" /></span>
+                        </div>
+                    </div>
+                    <!------Tagged Task------>
+                    <div class="involve_actor">
+
+
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-12 no-padding padL-0">
+                                <span class="pull-left " ng-if="firstMetaDataItem.TaggedTask.length > 1">
+                                    <input type="checkbox" class="mt-0" ng-click="AllSelected(firstMetaDataItem.TaggedTask ,select)" ng-model="select"><span class=""> All</span>
+                                </span>
+                                <span class="no-padding">
+                                    Tagged Tasks
+                                </span>
+                            </div>
+                            <div class="col-sm-12 padL-0">
+                                <ul class="col-sm-12 PadR0">
+                                    <li ng-repeat-start="item in firstMetaDataItem.TaggedTask | orderBy : 'siteType'" class="col-sm-12 padL-0 PadR0">
+                                        <div class="col-sm-1 padL-0 PadR0 wid29">
+                                            <img ng-if="item.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                            <img ng-if="item.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                            <img ng-if="item.siteType =='DE'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                            <img ng-if="item.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                            <img ng-if="item.siteType =='Education'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                            <img ng-if="item.siteType =='EI'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                            <img ng-if="item.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                            <img ng-if="item.siteType =='Health'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                            <img ng-if="item.siteType =='QA'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                            <img ng-if="item.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                            <img ng-if="item.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                            <img ng-if="item.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                            <img ng-if="item.siteType =='Offshore Tasks'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/offshore_Tasks.png">
+                                            <span ng-if="item.Taggedchilds.length>0 && !item.expanded" ng-click="item.expanded=true" class="">
+                                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                            </span>
+                                            <span ng-if="item.Taggedchilds.length>0 && item.expanded" ng-click="item.expanded=false" class="">
+                                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-1 no-padding wid22">
+                                            <input type="checkbox" ng-model="item.IsSelected">
+                                        </div>
+                                        <div class="col-sm-10 no-padding">
+                                            <span>
+                                                <a class="{{item.IsItemUpdated?'highlight':''}}" ng-if="item.siteType !='Master Tasks'" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                                    {{item.Title}}
+                                                </a>  <a class="{{item.IsItemUpdated?'highlight':''}}" ng-if="item.siteType =='Master Tasks'" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                                    {{item.Title}}
+                                                </a>
+                                            </span>
+                                        </div>
+
+                                    </li>
+                                    <li class="col-sm-12 padL-0 PadR0" ng-if="item.expanded" ng-repeat-end>
+
+
+
+                                        <ul class="subfilter padL-0">
+                                            <li class="col-sm-12 padL-0 PadR0" class="col-sm-12 padL-0 PadR0" ng-repeat-start="child in  filteredItems =(item.Taggedchilds)">
+
+                                                <div class="col-sm-1 padL-0 PadR0 wid29">
+                                                    <img ng-if="child.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                                    <img ng-if="child.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                                    <img ng-if="child.siteType =='DE'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                                    <img ng-if="child.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                                    <img ng-if="child.siteType =='Education'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                                    <img ng-if="child.siteType =='EI'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                                    <img ng-if="child.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                                    <img ng-if="child.siteType =='Health'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                                    <img ng-if="child.siteType =='QA'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                                    <img ng-if="child.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                                    <img ng-if="child.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                                    <img ng-if="child.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                                    <span ng-if="child.Taggedsubchilds.length>0 && !child.expanded" ng-click="child.expanded=true" class="">
+                                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                                    </span>
+                                                    <span ng-if="child.Taggedsubchilds.length>0&&child.expanded" ng-click="child.expanded=false" class="">
+                                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-1 no-padding wid22"></div>
+                                                <div class="col-sm-10 no-padding">
+                                                    <span id="New{{child.Id}}">
+                                                        <a class="{{child.IsItemUpdated?'highlight':''}}" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{child.Id}}&Site={{child.siteType}}">
+                                                            {{child.Title}}
+                                                        </a>
+
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-12 padL-0 PadR0" ng-if="child.expanded" ng-repeat-end>
+
+                                                <ul class="subfilter padL-0">
+                                                    <li class="col-sm-12 padL-0 PadR0" ng-repeat="task in child.Taggedsubchilds">
+                                                        <div class="col-sm-1 padL-0 PadR0 wid29">
+                                                            <img ng-if="task.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                                            <img ng-if="task.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                                            <img ng-if="task.siteType =='DE'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                                            <img ng-if="task.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                                            <img ng-if="task.siteType =='Education'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                                            <img ng-if="task.siteType =='EI'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                                            <img ng-if="task.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                                            <img ng-if="task.siteType =='Health'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                                            <img ng-if="task.siteType =='QA'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                                            <img ng-if="task.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                                            <img ng-if="task.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                                            <img ng-if="task.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                                        </div>
+                                                        <div class="col-sm-1 wid22 no-padding"></div>
+                                                        <div class="col-sm-1 no-padding">
+                                                            <span>
+                                                                <a class="{{task.IsItemUpdated?'highlight':''}}" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{task.Id}}&Site={{task.siteType}}">
+                                                                    {{task.Title}}
+                                                                </a>
+                                                        </div>
+                                                        </span>
+
+                                                    </li>
+                                                </ul>
+
+                                            </li>
+                                        </ul>
+
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center ">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Please Select TaggedTask" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'TaggedTask');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Please Select TaggedTask" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'TaggedTask');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-12 no-padding padL-0">
+                                <span class="pull-left " ng-if="secondMetaDataItem.TaggedTask.length > 1">
+                                    <input type="checkbox" class="mt-0" ng-click="AllSelected(secondMetaDataItem.TaggedTask ,select)" ng-model="select"><span class=""> All</span>
+                                </span>
+                                <span class="no-padding">
+                                    Tagged Tasks
+                                </span>
+                            </div>
+                            <div class="col-sm-12 padL-0">
+                                <ul class="col-sm-12 PadR0">
+                                    <li class="col-sm-12 padL-0 PadR0" ng-repeat-start="item in secondMetaDataItem.TaggedTask | orderBy : 'siteType'">
+                                        <div class="col-sm-1 padL-0 PadR0 wid29">
+                                            <img ng-if="item.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                            <img ng-if="item.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                            <img ng-if="item.siteType =='DE'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}//SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                            <img ng-if="item.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                            <img ng-if="item.siteType =='Education'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                            <img ng-if="item.siteType =='EI'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                            <img ng-if="item.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                            <img ng-if="item.siteType =='Health'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                            <img ng-if="item.siteType =='QA'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                            <img ng-if="item.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                            <img ng-if="item.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                            <img ng-if="item.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                            <span ng-if="item.Taggedchilds.length>0 && !item.expanded" ng-click="item.expanded=true" class="">
+                                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                            </span>
+                                            <span ng-if="item.Taggedchilds.length>0 && item.expanded" ng-click="item.expanded=false" class="">
+                                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-1 no-padding wid22">
+                                            <input type="checkbox" ng-model="item.IsSelected">
+                                        </div>
+                                        <div class="col-sm-10 no-padding">
+                                            <span id="New{{item.Id}}">
+                                                <a class="{{item.IsItemUpdated?'highlight':''}}" ng-if="item.siteType !='Master Tasks'" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                                    {{item.Title}}
+                                                </a>  <a class="{{item.IsItemUpdated?'highlight':''}}" ng-if="item.siteType =='Master Tasks'" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                                    {{item.Title}}
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li class="col-sm-12 padL-0 PadR0" class="" ng-if="item.expanded" ng-repeat-end>
+
+
+
+                                        <ul class="subfilter padL-0">
+                                            <li class="col-sm-12 padL-0 PadR0" ng-repeat-start="child in  filteredItems =(item.Taggedchilds)">
+                                                <div class="col-sm-1 padL-0 PadR0 wid29">
+                                                    <img ng-if="child.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                                    <img ng-if="child.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                                    <img ng-if="child.siteType =='DE'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                                    <img ng-if="child.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                                    <img ng-if="child.siteType =='Education'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                                    <img ng-if="child.siteType =='EI'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                                    <img ng-if="child.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                                    <img ng-if="child.siteType =='Health'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                                    <img ng-if="child.siteType =='QA'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                                    <img ng-if="child.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                                    <img ng-if="child.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                                    <img ng-if="child.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                                    <span ng-if="child.Taggedsubchilds.length>0 && !child.expanded" ng-click="child.expanded=true" class="">
+                                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                                    </span>
+                                                    <span ng-if="child.Taggedsubchilds.length>0&&child.expanded" ng-click="child.expanded=false" class="">
+                                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-1 no-padding wid22"></div>
+                                                <div class="col-sm-10 no-padding">
+                                                    <span id="New{{child.Id}}">
+                                                        <a class="{{child.IsItemUpdated?'highlight':''}}" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{child.Id}}&Site={{child.siteType}}">
+                                                            {{child.Title}}
+                                                        </a>
+
+                                                    </span>
+                                                </div>
+
+                                            </li>
+                                            <li class="col-sm-12 padL-0 PadR0" ng-if="child.expanded" ng-repeat-end>
+
+                                                <ul class="subfilter padL-0">
+                                                    <li class="col-sm-12 padL-0 PadR0" ng-repeat="task in child.Taggedsubchilds">
+                                                        <div class="col-sm-1 padL-0 PadR0 wid29">
+                                                            <img ng-if="task.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                                            <img ng-if="task.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                                            <img ng-if="task.siteType =='DE'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                                            <img ng-if="task.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                                            <img ng-if="task.siteType =='Education'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                                            <img ng-if="task.siteType =='EI'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                                            <img ng-if="task.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                                            <img ng-if="task.siteType =='Health'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                                            <img ng-if="task.siteType =='QA'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                                            <img ng-if="task.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                                            <img ng-if="task.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                                            <img ng-if="task.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                                        </div>
+                                                        <div class="col-sm-1 no-padding wid22"></div>
+                                                        <div class="col-sm-10 no-padding">
+                                                            <span>
+                                                                <a class="{{task.IsItemUpdated?'highlight':''}}" target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{task.Id}}&Site={{task.siteType}}">
+                                                                    {{task.Title}}
+                                                                </a>
+
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </li>
+                                        </ul>
+
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('TaggedTask');">
+                            </span>
+                        </div>
+                    </div>
+                    <!------Child Items------>
+                    <div class="involve_actor">
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-12 no-padding padL-0">
+                                <label class="full_width">Childs</label>
+                            </div>
+                            <div class="col-sm-12 padL-0">
+                                <ul class="col-sm-12 PadR0">
+                                    <li ng-repeat="item in firstMetaDataItem.childs">
+
+
+                                        <input type="checkbox" ng-model="item.IsSelected">
+                                        <span>
+                                            {{item.Title}}
+                                        </span>
+
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Please Select SubComponent" data-toggle="popover" data-trigger="hover" ng-click="moveItem(firstMetaDataItem,secondMetaDataItem,'childs');">
+                            </span>
+                            <span class="col-sm-12 text-center">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/Arrow_Left.png" title="Please Select SubComponent" data-toggle="popover" data-trigger="hover" ng-click="moveItem(secondMetaDataItem,firstMetaDataItem,'childs');">
+                            </span>
+                        </div>
+                        <div class="tlvalue impact-infoII">
+                            <div class="col-sm-12 no-padding padL-0">
+                                <label class="full_width">Childs</label>
+                            </div>
+                            <div class="col-sm-12 padL-0">
+                                <ul class="col-sm-12 PadR0">
+                                    <li ng-repeat="item in secondMetaDataItem.childs">
+                                        <input type="checkbox" ng-model="item.IsSelected">
+                                        <span>
+                                            {{item.Title}}
+                                        </span>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tmvalue impact-infoI">
+                            <span class="col-sm-12 text-center mt-10">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/icon_Undo.png" title="Undo" data-toggle="popover" data-trigger="hover" ng-click="UndoItems('childs');">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="involve_actor mt-10 mb-10">
+                        <div class="tlvalue impact-infoII">
+                            <div>
+                                <span class="mr-5"><img class="icon-sites-img" ng-if="firstMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{firstMetaDataItem.Item_x005F_x0020_Cover.Url}}" /></span>
+
+                                <a target="_blank" ng-href="">{{firstMetaDataItem.Title}} </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tlvalue impact-infoII">
+                            <div class="partner_des partner_des footerUsercolor">
+                                <span class="mr-5"><img class="icon-sites-img" ng-if="secondMetaDataItem.Item_x005F_x0020_Cover != undefined" ng-src="{{secondMetaDataItem.Item_x005F_x0020_Cover.Url}}" /></span>
+
+
+                                <a target="_blank" ng-href="">{{secondMetaDataItem.Title}}</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!----Image-->
+
+                </div>
+
+            </div>
+        </ng-form>
+        <div class="modal-footer">
+
+            <div class="col-sm-12 padL-0 PadR0">
+                <div class="col-sm-3  padL-0 " align="left">
+                    <div><a ng-href="{{SubsiteUrl}}/Lists/SmartMetadata/EditForm.aspx?ID={{firstMetaDataItem.Id}}" target="_blank">Open out-of-the-box form</a></div>
+                    <div>Created <span>{{firstMetaDataItem.Created| date : "dd/MM/y"}}</span> by <span>{{firstMetaDataItem.Author.Title}}</span></div>
+                    <div>Last modified <span>{{firstMetaDataItem.Modified| date : "dd/MM/y"}}</span> by <span>{{firstMetaDataItem.Editor.Title}}</span></div>
+                </div>
+                <div class="col-sm-6" align="center">
+                    <button type="button" ng-disabled="!Keep1" class="btn btn-primary" ng-click="keepItem1('Keep1')">Update & Keep 1</button>
+                    <button type="button" ng-disabled="!Keep2" class="btn btn-primary" ng-click="keepItem2('Keep2')">Update & Keep 2</button>
+                    <button type="button" class="btn btn-primary" style="margin-top: 2px;" ng-click="keepBoth('KeepBoth')"
+                            ng-disabled="compareToolForm.validFirstEmail.$error.email||compareToolForm.validFirstWebSiteUrl.$error.pattern||compareToolForm.validFirstDMSLinkUrl.$error.pattern||compareToolForm.validSecondDMSLinkUrl.$error.pattern||compareToolForm.validSecondWebSiteUrl.$error.pattern||compareToolForm.validSecondEmail.$error.email">
+                        Update & Keep both
+                    </button>
+                </div>
+                <div class="col-sm-3  PadR0" align="right">
+                    <div><a ng-href="{{SubsiteUrl}}/Lists/SmartMetadata/EditForm.aspx?ID={{secondMetaDataItem.Id}}" target="_blank">Open out-of-the-box form</a></div>
+                    <div>Created <span>{{secondMetaDataItem.Created| date : "dd/MM/y"}}</span> by <span>{{secondMetaDataItem.Author.Title}}</span></div>
+                    <div>Last modified <span>{{secondMetaDataItem.Modified| date : "dd/MM/y"}}</span> by <span>{{secondMetaDataItem.Editor.Title}}</span></div>
+                </div>
+            </div>
+
+        </div>
+        <shareweb-progress-bar progressBarId="'CompareSmartmetadataPopupId'">
+        </shareweb-progress-bar>
+    </div>
+    <div id="UpdateDescription" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="false" style="display: none;">
+        <div class="modal-dialog modal-help">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <h3 class="ng-binding">
+                        {{descriptiontype}}
+                        <button type="button" class="close" ng-click="CancelDescription()" style="min-width: 10px;">x</button>
+                    </h3>
+                </div>
+                <div class="panel-body tab-content">
+                    <div id="description" class="col-sm-12 panel-padding"> </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="SaveDescription(descriptiontype)">Ok</button>
+                    <button type="button" class="btn btn-default" ng-click="CancelDescription()" title="Discard unsaved changes &amp; exit">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="UpdateDrogDropItem" class="modal" role="dialog">
+        <div class="modal-dialog modal-help">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <h3 class="ng-binding">
+                        <!--<img ng-if="SelectedItem.Item_x0020_Type =='Component'" class="icon-sites-img"
+                             ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                        <img ng-if="SelectedItem.Item_x0020_Type =='SubComponent'"
+                             class="icon-sites-img"
+                             ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                        <img ng-if="SelectedItem.Item_x0020_Type =='Feature'" class="icon-sites-img"
+                             ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">-->
+                        Move Child Item - <span title="{{item.Title}}" data-toggle="popover" data-trigger="hover">
+                            <a target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{SelectedItem.Id}}&Site={{item.siteType}}">
+                                {{SelectedItem.Title}}
+                            </a>
+                        </span>
+                        <button type="button" class="close" ng-click="CancelDragItem()" style="min-width: 10px;">x</button>
+                    </h3>
+                </div>
+                <div class="panel-body tab-content col-sm-12">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-12 mb-10 for_text header_back_clr">
+                            Select parent where you move the child now.
+                        </div>
+                    </div>
+                    <ul class="col-sm-12 ">
+                        <li ng-if="item.Item_x0020_Type !='Feature'" ng-repeat-start="item in AllItems">
+                            <img ng-if="item.Item_x0020_Type =='Component'" style="margin-left: -8px;" class="icon-sites-img"
+                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                            <img ng-if="item.Item_x0020_Type =='SubComponent'" style="margin-left: -8px;" class="icon-sites-img"
+                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                            <img ng-if="item.Item_x0020_Type =='Feature'" style="margin-left: -8px;" class="icon-sites-img"
+                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+                            <span ng-if="item.childs.length>0 && !item.expanded" ng-click="item.expanded=true" class="">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                            </span>
+                            <span ng-if="item.childs.length>0 && item.expanded" ng-click="item.expanded=false" class="">
+                                <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                            </span>
+
+
+                            <input type="radio" name="text" ng-click="DrogAllItem(item);">
+                            <span ui-draggable="true" drag="item" on-drop-success="dropSuccessHandler($event, $index,  compareComponentsItems[0].childs)" title="{{item.Title}}" data-toggle="popover" data-trigger="hover">
+                                <a target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}&Site={{item.siteType}}">
+                                    {{item.Title}}
+                                </a>
+                            </span>
+                        </li>
+                        <li ng-if="item.expanded" ng-repeat-end>
+                            <ul class="subfilter">
+                                <li ng-if="child.Item_x0020_Type !='Feature'" ng-repeat-start="child in  filteredItems =(item.childs)">
+                                    <img ng-if="child.Item_x0020_Type =='Component'" style="margin-left: -8px;" class="icon-sites-img"
+                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                                    <img ng-if="child.Item_x0020_Type =='SubComponent'" style="margin-left: -8px;" class="icon-sites-img"
+                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                                    <img ng-if="child.Item_x0020_Type =='Feature'" style="margin-left: -8px;" class="icon-sites-img"
+                                         ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+                                    <span ng-if="child.childs.length>0 && !child.expanded" ng-click="child.expanded=true" class="">
+                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                    </span>
+                                    <span ng-if="child.childs.length>0&&child.expanded" ng-click="child.expanded=false" class="">
+                                        <img src="{{siteURL}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                    </span>
+
+                                    <img ng-if="child.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                    <img ng-if="child.siteType =='Gender'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                    <img ng-if="child.siteType =='DE'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                    <img ng-if="child.siteType =='DRR'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                    <img ng-if="child.siteType =='Education'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                    <img ng-if="child.siteType =='EI'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                    <img ng-if="child.siteType =='EPS'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                    <img ng-if="child.siteType =='Health'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                    <img ng-if="child.siteType =='QA'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                    <img ng-if="child.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                    <img ng-if="child.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                    <img ng-if="child.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                         ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                    <input ng-if="child.Item_x0020_Type !='Feature'" type="radio" name="text" ng-click="DrogAllItem(child);">
+                                    <span>
+                                        <a target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{child.Id}}&Site={{child.siteType}}">
+                                            {{child.Title}}
+                                        </a>
+                                    </span>
+
+                                </li>
+                                <li ng-if="child.expanded" ng-repeat-end>
+                                    <ul class="subfilter">
+                                        <li ng-if="task.Item_x0020_Type !='Feature'" ng-repeat="task in child.childs">
+                                            <img ng-if="task.Item_x0020_Type =='Component'" style="margin-left: -8px;" class="icon-sites-img"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                                            <img ng-if="task.Item_x0020_Type =='SubComponent'" style="margin-left: -8px;" class="icon-sites-img"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                                            <img ng-if="task.Item_x0020_Type =='Feature'" style="margin-left: -8px;" class="icon-sites-img"
+                                                 ng-src="{{siteURL}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+
+
+
+                                            <img ng-if="task.siteType =='Gruene'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                                            <img ng-if="task.siteType =='Gender'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                                            <img ng-if="task.siteType =='DE'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                                            <img ng-if="task.siteType =='DRR'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                                            <img ng-if="task.siteType =='Education'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                                            <img ng-if="task.siteType =='EI'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                                            <img ng-if="task.siteType =='EPS'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                                            <img ng-if="task.siteType =='Health'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                                            <img ng-if="task.siteType =='QA'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                                            <img ng-if="task.siteType =='Shareweb'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                                            <img ng-if="task.siteType =='HHHH'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                                            <img ng-if="task.siteType =='Small Projects'" class="icon-sites-img ml-8"
+                                                 ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                                            <span>
+                                                <a target="_blank" ng-href="{{SubsiteUrl}}/SitePages/Task-Profile.aspx?taskId={{child.Id}}&Site={{child.siteType}}">
+                                                    {{task.Title}}
+                                                </a>
+                                            </span>
+
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-disabled="SelectedParetItem" class="btn btn-primary mt-10" ng-click="SaveParentChange()">Ok</button>
+                    <button type="button" class="btn btn-default mt-10" ng-click="CancelDragItem()" title="Discard unsaved changes &amp; exit">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="UpdatecommentItem" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="false" style="display: none;">
+        <div class="modal-dialog modal-help">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" class="close" ng-click="cancelCommentPopUp()"
+                            style="min-width: 10px;">
+                        &times;
+                    </button>
+                    <h3>Update Comment</h3>
+                </div>
+                <div class="panel-body tab-content">
+                    <div class="" style="padding-top:15px;">
+                        <div class="col-md-12">
+                            <div id="updateCommentItem"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:1px solid transparent;">
+                    <div class="col-sm-12">
+                        <span class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="saveUpdateComment()">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    ng-click="cancelCommentPopUp()">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="EditDiscussion" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="panel panel-default">
+                <ng-form name="EditDiscussionForm" novalidate role="form">
+                    <div class="panel-title">
+                        <h3 ng-if="Item.Title!=undefined">
+                            Comments - {{Item.Title}}
+                            <button type="button" class="close" ng-click="CancelEditDiscussion()"
+                                    style="min-width: 10px;">
+                                &times;
+                            </button>
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12 phase collaps">
+                            <div class="col-sm-12 mt-10">
+                                <div class="col-sm-offset-1 col-sm-10 padL-0">
+                                    <strong>
+                                        <span style="font-size:24px;"></span> All Comments:
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mb-10 boxhs5 padL-0">
+                                <div ng-repeat="item in AllComments.Comments|orderBy:'ID':true">
+                                    <div class="col-sm-offset-1 col-sm-10 mb-5 add_cmnt team-profile">
+                                        <div class="row">
+                                            <div class="col-sm-2 cmnt_img">
+                                                <img style="width:95%;margin-left: -7px;" ng-if="item.AuthorImage=='' ||  item.AuthorImage==undefined"
+                                                     src="{{siteURL}}/SiteCollectionImages/ICONS/32/icon_user.jpg">
+                                                <img style="width:95%;margin-left: -7px;" ng-if="item.AuthorImage !='' && item.AuthorImage !=undefined"
+                                                     ng-src="{{item.AuthorImage}}">
+                                            </div>
+                                            <div class="col-sm-10 padL-0">
+                                                <div class="row">
+                                                    <span class="footerUsercolor">{{item.AuthorName}} <span>-</span></span>
+
+                                                    <span style="font-size:10px;">
+                                                        {{item.Created | date:'dd MMM yyyy'}}
+                                                    </span>
+
+                                                    <a class="hreflink" ng-click="editcomment(item);">
+                                                        <img src="/_layouts/images/edititem.gif">
+                                                    </a>
+                                                    <a class="hreflink" title="Delete"
+                                                       ng-click="saveComment(item,'delete')">
+                                                        <img src="/_layouts/images/delete.gif">
+                                                    </a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-11 padL-0">
+                                                        <span ng-bind-html="item.Description | trustedHTML"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 padL-0">
+                                <div class="col-sm-offset-1 col-sm-10 mb-10 padL-0">
+                                    <textarea id="body" class="ui-autocomplete-input" rows="4" style="width:100%"
+                                              ng-required="true" required="required" placeholder="Add Comment" ng-model="ReplyBody"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-disabled="EditDiscussionForm.$error.required" class="btn btn-primary mt-10"
+                                ng-click="createComment()" title="Save changes & exit">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-default mt-10" ng-click="CancelEditDiscussion()"
+                                title="Discard unsaved changes & exit">
+                            Cancel
+                        </button>
+                    </div>
+                </ng-form>
+            </div>
+        </div>
+    </div>
+
+    <!--******************************************Smart taxonomy popup **************************************************************************************-->
+    <div id="SmartTaxonomyPopup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelSmartTaxonomyPopup()" style="min-width: 10px;">&times;</button>
+                    <h4 class="modal-title">
+                        Select -{{SmartTaxonomyName}}
+                    </h4>
+                    <table class="ms-dialogHeader" cellspacing="0" cellpadding="0" border="0" width="100%" style="padding-top: 8px; padding-bottom: 10px;">
+                        <tbody>
+                            <tr class="">
+                                <td valign="middle" align="center" style="width:0px; padding-left: 15px; padding-right: 15px;">
+                                    <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/EMMDoubleTag.png" alt="">
+                                </td>
+                                <td class="ms-dialogHeaderDescription" valign="top" style="width:100%;">
+                                    <div id="selectTermDescription" class="none-wordbreak">
+                                        <table class="ms-dialogHeaderDescription">
+                                            <tbody>
+                                                <tr id="addNewTermDescription" class="">
+                                                    <td>New items are added under the currently selected item.</td>
+
+                                                    <td class="TaggingLinkWidth">
+                                                        <a style="cursor:pointer;" ng-click="gotomanagetaxonomy();">
+                                                            Add New Item
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr id="SendFeedbackTr">
+                                                    <td>Make a request or send feedback to the Term Set manager.</td>
+                                                    <td class="TaggingLinkWidth">
+                                                        <a href="mailto:e-i@eda.admin.ch">
+                                                            Send Feedback
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td class=" pull-right">
+                                    <button type="button" class="btn btn-primary" ng-click="copySelectedSmartTaxonomy()">OK</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 padL-0 PadR0 mb-10 mt-10">
+                        <span ng-show="SmartTaxonomyName =='Components'">
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtSharewebComponentselsction" autocomplete="off" placeholder="Search here"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </span>
+                        <span ng-show="SmartTaxonomyName =='Categories'">
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtCategories1" autocomplete="off" placeholder="Search here"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </span>
+
+
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-10" ng-hide="SmartTaxonomyName=='Topics' || SmartTaxonomyName=='Activities' || SmartTaxonomyName=='Countries' || SmartTaxonomyName=='Shareweb Pages' || SmartTaxonomyName =='Components'|| SmartTaxonomyName =='Categories'">
+                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty ui-autocomplete-input" id="txtSmartTaxonomyPopup" ng-model="SmartTaxonomyValue" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 padL-0 PadR0">
+                        <div class="col-sm-12 ActivityBox" ng-show="SmartTaxonomyName =='Components'">
+                            <span class="block" ng-mouseover="HoverIn(item);" ng-mouseleave="ComponentTitle.STRING='';" title="{{ComponentTitle.STRING}}" ng-repeat="item in Item.smartComponent track by $index">{{item.Title}}<a class="hreflink" ng-click="removeEditSmartComponent(item.Id)"> <img ng-src="/_layouts/images/delete.gif"></a></span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-sm-12 ActivityBox" ng-show="SmartTaxonomyName =='Categories'">
+                            <span class="block" ng-repeat="item in Item.smartCategories">{{item.Title}}<a class="hreflink" ng-click="removeCategories(item.Id)"> <img ng-src="/_layouts/images/delete.gif"></a></span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                    <div class="divPanelBody col-sm-12 padL-0 PadR0">
+                        <nav id="nav_pop-up">
+                            <ul id="main-menu">
+                                <li ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink" id="Smart{{item.Id}}" ng-click="selectItem(item,'Component',$index);"><img ng-if="item.Item_x005F_x0020_Cover.Url != undefined" style="height: 12px; width:18px;" ng-src="{{item.Item_x005F_x0020_Cover.Url}}"> {{item.Title}}</a>
+                                    <ul ng-if="item.childs.length>0" class="sub-menu clr" id="Test{{item.Id}}">
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a class="hreflink" id="Bud{{child1.Id}}" ng-click="selectItem(child1,'SubComponent');"><img ng-if="child1.Item_x005F_x0020_Cover.Url != undefined" style="height: 12px; width:18px;" ng-src="{{child1.Item_x005F_x0020_Cover.Url}}"> {{child1.Title}}</a>
+                                            <ul ng-if="child1.childs.length>0" class="sub-menu clr2" id="Next{{child1.Id}}">
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a class="hreflink" ng-click="selectItem(child2,'Feature');"><img ng-if="child2.Page_x002d_Title!=undefined && child2.ProfileType!=undefined" class="flag_icon" ng-src="{{child2.Item_x0020_Cover.Url}}"> {{child2.Title}}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a class="hreflink" ng-click="gotomanagetaxonomy();">Manage Smart Taxonomy</a>
+                    <button type="button" class="btn btn-primary" ng-click="copySelectedSmartTaxonomy()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="SmartComponentCategory" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelComponentCategory()" style="min-width: 10px;">&times;</button>
+                    <h4 class="modal-title">
+                        Select Component Category
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content  bdrbox">
+                        <div class="col-sm-12 section-event pt-0 mt-10 mb-10">
+                            <nav id="nav_pop-up">
+                                <div class="col-sm-12 padL-0  mb-10 mt-10">
+                                    <input type="text" class="width-90 searchbox_height  ui-autocomplete-input" ng-model="searchCompCatItem" autocomplete="off">
+                                    <span class="searchclear" ng-click="clearControl('searchCompCatItem')">X</span>
+                                    <span class="{{orderBy=='Title'&&!reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" style="margin-top: -10px;" ng-click="Sortby('Title', false)"></span>
+                                    <span class="{{orderBy=='Title'&&reverse?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" style="margin-top: 3px;" ng-click="Sortby('Title', true)"></span>
+                                </div>
+
+                                <table style="width:100%;" class="tbody_scroll_fix rmv-x-scroll">
+
+
+                                    <tr ng-repeat="item in FilterCompCat=( CompCatItems | orderBy:orderBy:reverse |filter:{Title:searchCompCatItem})" class="box_bdr">
+                                        <td class="for_width" style="width: 3%;">
+                                            <input type="radio" class="mb-5" ng-checked="item.Id ==Item.smartComponentCategorycopy[0].Id" ng-click="selectCompCatItem(item)" name="name" />
+                                        </td>
+                                        <td ng-click="selectCompCatItem(item)">{{item.Title}}</td>
+                                    </tr>
+
+                                </table>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary mt-10" ng-click="AddCompCatItem()">OK</button>
+                        <button type="button" class="mt-10" ng-click="cancelComponentCategory()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

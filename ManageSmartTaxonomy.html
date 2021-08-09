@@ -1,0 +1,639 @@
+﻿<script type="text/javascript"
+        src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/Documents/jquery.treeviewnoredirect1.js"></script>
+<link rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/Documents/jquery.treeview.css" />
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Online/ManageSmartTaxonomy/EditSharewebSmartMetaData.js?updated=27-03-2018"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Online/ManageSmartTaxonomy/ManageSmartTaxonomy.js?updated=11-01-2021"></script>
+<style>
+    .smartmetadata .divPanelBody ul.sub-menu {
+        top: 93px !important;
+    }
+
+    .TSizesdec {
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: underline !important;
+    }
+
+    .smartmetadata .divPanelBody ul.sub-menu.menulist2 {
+        left: 362px !important;
+    }
+
+    #pageTitle a {
+        display: none !important;
+    }
+
+    #contentRow {
+        padding-top: 0px !important;
+        margin-top: -15px;
+    }
+</style>
+<div class="smartmetadata" ng-app="app" ng-controller="TaxonomyItemController" ng-cloak>
+    <div>
+        <h1 class="blue-clr"> SmartMetadata</h1>
+    </div>
+    <div class="col-sm-12 padL-0 PadR0 ">
+        <div class="col-sm-2 mb-5 padL-0 PadR0" style="width: 12%;">Search in all Menu data:</div>
+        <div class="col-sm-8 no-padding mb-5">
+            <input id="searchinput" type="search" ng-model="searchSmartTaxonomyItem"
+                   placeholder="Search in all Taxonomy..." class="searchbox_height form-control">
+            <span ng-show="searchSmartTaxonomyItem.length>0" class="searchclear" ng-click="clearControl('searchinput')">X</span>
+        </div>
+        <div class="col-sm-2 mb-5  PadR0">
+            <a class="hreflink pull-right TSizesdec" target="_blank" ng-href="{{CurrentSubSiteUrl}}/SitePages/ManageSmartMetaData.aspx">Manage SmartMetadata </a>
+        </div>
+        <div class="col-sm-12 mt-10 mb-10 padL-0 PadR0" ng-hide="AllTaxonomyItems==undefined || AllTaxonomyItems.length==0 || filtered.length==0">
+            <div id="SearchMetadata" style="padding-left:17%; display:block;">
+                <div class="">
+                    <div class="panel-body smartmeta_manage">
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table class="table table-hover" cellspacing="0">
+                                    <tbody>
+                                        <tr ng-if="AllTaxonomyItems.length == 0">
+                                            <td colspan="4" align="center">
+                                                Search Taxonomy from all Taxonomy.
+                                            </td>
+                                        </tr>
+
+                                        <tr ng-repeat="item in filtered = (AllTaxonomyItems | filter:searchSmartTaxonomyItem | orderBy:orderBy:reverse| filter: search)">
+                                            <td>{{item.Title}}</td>
+                                            <td>{{item.TaxType}}</td>
+
+                                            <td style="width:1%;">
+                                                <a class="hreflink" title="Edit" ng-click="EditTaxonomy(item)">
+                                                    <img ng-src="/_layouts/images/edititem.gif">
+                                                </a>
+                                            </td>
+                                            <td style="width:1%;">
+                                                <a class="hreflink" title="Edit" ng-click="deleteitem(item)">
+                                                    <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body col-sm-12 boxhgt">
+        <div class="divPanelBody">
+            <div class="">
+                <div id="tabs" class="exTab3">
+                    <ul class="nav nav-pills">
+                        <li class="{{gettabName.toLowerCase()=='categories'?'active':''}}">
+                            <a href="#Categories" data-toggle="tab">Categories</a>
+                        </li>
+                        <li class="{{gettabName.toLowerCase()=='Client Category'?'active':''}}">
+                            <a href="#ClientCategory" data-toggle="tab">Client Category</a>
+                        </li>
+                        <li class="{{gettabName.toLowerCase()=='sites'?'active':''}}">
+                            <a href="#Sites" data-toggle="tab">Sites</a>
+                        </li>
+
+                        <li class="{{gettabName.toLowerCase()=='status'?'active':''}}">
+                            <a href="#Status" data-toggle="tab">Status</a>
+                        </li>
+                        <li class="{{gettabName.toLowerCase()=='priority'?'active':''}}">
+                            <a href="#Priority" data-toggle="tab">Priority</a>
+                        </li>
+
+                        <li class="{{gettabName.toLowerCase()=='timesheet'?'active':''}}">
+                            <a href="#Timesheet" data-toggle="tab">TIMESHEETCATEGORIES</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content boxhgt">
+                        <div class="tab-pane fade  tabheight {{gettabName.toLowerCase()=='categories'?'active in':''}}" id="Categories">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Categories');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Categories'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="hreflink pad56 pull-right" ng-if="isOwner==true"
+                                       ng-click="deleteitem(item);">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="hreflink pad56 pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Categories', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul ng-click="showchild(item)" id="submenu_{{item.Id}}"
+                                        class="Showclass for-li sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Categories', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img class="pull-right" ng-click="deleteitem(child1);"
+                                                     ng-if="isOwner==true"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Categories', child1, item);"
+                                                     ng-if="isMemberOwner==true"
+                                                     src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul ng-click="showchild(child1)" id="submenu_{{child1.Id}}"
+                                                class="sub-menu clr3 menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Categories', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img class="pull-right" ng-click="deleteitem(child2);"
+                                                             ng-if="isOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Categories', child2, child1,item);"
+                                                             ng-if="isMemberOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade tabheight {{gettabName.toLowerCase()=='sites'?'active in':''}}" id="Sites">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Sites');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Sites'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="hreflink pad56  pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="hreflink pad56 pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Sites', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul ng-click="showclass(item)" id="submenu_{{item.Id}}"
+                                        class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Sites', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img class="pull-right" ng-click="deleteitem(child1);"
+                                                     ng-if="isOwner==true"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Sites', child1, item);"
+                                                     ng-if="isMemberOwner==true"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul ng-click="showclass(Child1)" id="submenu_{{child1.Id}}"
+                                                class="sub-menu clr3 menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Sites', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img class="pull-right" ng-click="deleteitem(child2);"
+                                                             ng-if="isOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Sites', child2, child1,item);"
+                                                             ng-if="isMemberOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade tabheight {{gettabName.toLowerCase()=='Client Category'?'active in':''}}" id="ClientCategory">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Client Category');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Client Category'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="hreflink pad56  pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="hreflink pad56 pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Client Category', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul ng-click="showclass(item)" id="submenu_{{item.Id}}"
+                                        class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Client Category', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img class="pull-right" ng-click="deleteitem(child1);"
+                                                     ng-if="isOwner==true"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Client Category', child1, item);"
+                                                     ng-if="isMemberOwner==true"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul ng-click="showclass(Child1)" id="submenu_{{child1.Id}}"
+                                                class="sub-menu clr3 menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Client Category', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img class="pull-right" ng-click="deleteitem(child2);"
+                                                             ng-if="isOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Client Category', child2, child1,item);"
+                                                             ng-if="isMemberOwner==true"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade tabheight {{gettabName.toLowerCase()=='status'?'active in':''}}" id="Status">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Status');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Status'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="pad56 hreflink pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="hreflink pad56 pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Status', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul id="submenu_{{item.Id}}" class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Status', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img ng-if="isOwner==true" class="pull-right"
+                                                     ng-click="deleteitem(child1);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img ng-if="isMemberOwner==true" class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Status', child1, item);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul id="submenu_{{child1.Id}}" class="sub-menu menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Status', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img ng-if="isOwner==true" class="pull-right"
+                                                             ng-click="deleteitem(child2);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img ng-if="isMemberOwner==true" class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Status', child2, child1,item);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade tabheight {{gettabName.toLowerCase()=='component'?'active in':''}}" id="component">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Components');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Components'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="pad56 hreflink pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="pad56 hreflink pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Priority', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul id="submenu_{{item.Id}}" class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Components', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img ng-if="isOwner==true" class="pull-right"
+                                                     ng-click="deleteitem(child1);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img ng-if="isMemberOwner==true" class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Priority', child1, item);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul id="submenu_{{child1.Id}}" class="sub-menu menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Components', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img ng-if="isOwner==true" class="pull-right"
+                                                             ng-click="deleteitem(child2);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img ng-if="isMemberOwner==true" class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Priority', child2, child1,item);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade tabheight {{gettabName.toLowerCase()=='priority'?'active':''}}" id="Priority">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('Priority');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'Priority'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="pad56 hreflink pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="pad56 hreflink pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('Priority', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul id="submenu_{{item.Id}}" class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('Priority', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img ng-if="isOwner==true" class="pull-right"
+                                                     ng-click="deleteitem(child1);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img ng-if="isMemberOwner==true" class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('Priority', child1, item);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul id="submenu_{{child1.Id}}" class="sub-menu menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('Priority', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img ng-if="isOwner==true" class="pull-right"
+                                                             ng-click="deleteitem(child2);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img ng-if="isMemberOwner==true" class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('Priority', child2, child1,item);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade hreflink  tabheight {{gettabName.toLowerCase()=='timesheet'?'active in':''}}" id="Timesheet">
+                            <ul id="main-menu" class="blockhoverdata menulist1">
+                                <li>
+                                    <a class="hreflink" ng-click="editSharewebSmartMetaData('TimesheetCategories');">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                    </a>
+                                </li>
+                                <li ng-click=showclass(item) ng-if="item.TaxType == 'TimesheetCategories'" id="node_{{item.Id}}"
+                                    ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink"
+                                       ng-click="selectsubmenu(item, TaxonomyItems);">{{item.Title}}</a>
+                                    <a class="pad56 hreflink pull-right" ng-click="deleteitem(item);"
+                                       ng-if="isOwner==true">
+                                        <img ng-src="{{baseUrl}}/_layouts/images/delete.gif">
+                                    </a>&nbsp;
+                                    <a class="pad56 hreflink pull-right">
+                                        <img ng-if="isMemberOwner==true"
+                                             ng-click="editSharewebSmartMetaData('TimesheetCategories', item);"
+                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a class="pad56 pull-right" ng-if="item.isProfilePageCreated">
+                                        <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                    </a>
+                                    <ul id="submenu_{{item.Id}}" class="sub-menu clr menulist2 ml32">
+                                        <li>
+                                            <a class="hreflink"
+                                               ng-click="editSharewebSmartMetaData('TimesheetCategories', null, item,child1);">
+                                                <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                     alt="" title="Add Taxonomy Item" class="img-icon">
+                                            </a>
+                                        </li>
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a id="node_{{child1.Id}}">
+                                                <span ng-click="selectsubmenu(child1, item.childs);">{{child1.Title}}</span>
+                                                <img ng-if="isOwner==true" class="pull-right"
+                                                     ng-click="deleteitem(child1);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                <img ng-if="isMemberOwner==true" class="pull-right"
+                                                     ng-click="editSharewebSmartMetaData('TimesheetCategories', child1, item);"
+                                                     ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                    <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                </span>
+                                            </a>
+                                            <ul id="submenu_{{child1.Id}}" class="sub-menu menulist3">
+                                                <li>
+                                                    <a class="hreflink"
+                                                       ng-click="editSharewebSmartMetaData('TimesheetCategories', null, child1,item);">
+                                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/addnew.png"
+                                                             alt="" title="Add Taxonomy Item" class="img-icon">
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a>
+                                                        {{child2.Title}}
+                                                        <img ng-if="isOwner==true" class="pull-right"
+                                                             ng-click="deleteitem(child2);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/delete.gif">&nbsp;
+                                                        <img ng-if="isMemberOwner==true" class="pull-right"
+                                                             ng-click="editSharewebSmartMetaData('TimesheetCategories', child2, child1,item);"
+                                                             ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                                        <span class="pull-right" ng-if="item.isProfilePageCreated">
+                                                            <img ng-src="/_layouts/15/images/ichtm.gif?rev=23">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
